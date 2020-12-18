@@ -1,0 +1,13 @@
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\bin\Debug\RDTSimulation.exe.config
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\bin\Debug\RDTSimulation.exe
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\bin\Debug\RDTSimulation.pdb
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.csprojAssemblyReference.cache
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.Form1.resources
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.Properties.Resources.resources
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.csproj.GenerateResource.cache
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.csproj.CoreCompileInputs.cache
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.exe
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.pdb
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.FormRdt10.resources
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.FormRdt20.resources
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.FormRdt21.resources
