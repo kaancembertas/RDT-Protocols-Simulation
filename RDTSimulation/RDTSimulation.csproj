@@ -60,6 +60,12 @@
     <Compile Include="FormRdt21.Designer.cs">
       <DependentUpon>FormRdt21.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormRdt22.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRdt22.Designer.cs">
+      <DependentUpon>FormRdt22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Packet.cs">
       <SubType>Component</SubType>

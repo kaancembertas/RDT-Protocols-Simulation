@@ -31,7 +31,13 @@ namespace RDTSimulation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            FormRdt21 form = new FormRdt21();
+           FormRdt21 form = new FormRdt21();
+            form.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            FormRdt22 form = new FormRdt22();
             form.ShowDialog();
         }
 
