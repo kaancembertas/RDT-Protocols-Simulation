@@ -301,6 +301,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormRdt22";
             this.Text = "Rdt 2.2 Simulation";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormRdt22_FormClosed);
             this.Load += new System.EventHandler(this.FormRdt22_Load);
             this.receiverTransportLayer.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

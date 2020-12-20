@@ -119,5 +119,10 @@ namespace RDTSimulation
         {
 
         }
+
+        private void FormRdt10_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            simulationTimer.Stop();
+        }
     }
 }

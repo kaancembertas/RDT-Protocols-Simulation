@@ -43,13 +43,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnSendMessage = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtBer = new System.Windows.Forms.TextBox();
             this.txtMessage = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.simulationTimer = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.txtBer = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.receiverTransportLayer.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -181,7 +181,7 @@
             this.btnSendMessage.Location = new System.Drawing.Point(143, 71);
             this.btnSendMessage.Name = "btnSendMessage";
             this.btnSendMessage.Size = new System.Drawing.Size(266, 23);
-            this.btnSendMessage.TabIndex = 3;
+            this.btnSendMessage.TabIndex = 2;
             this.btnSendMessage.Text = "Send Message";
             this.btnSendMessage.UseVisualStyleBackColor = true;
             this.btnSendMessage.Click += new System.EventHandler(this.btnSendMessage_Click);
@@ -200,13 +200,29 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Application Layer";
             // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(42, 48);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(94, 13);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "Bit Error Rate (0-1)";
+            // 
+            // txtBer
+            // 
+            this.txtBer.Location = new System.Drawing.Point(143, 45);
+            this.txtBer.Name = "txtBer";
+            this.txtBer.Size = new System.Drawing.Size(265, 20);
+            this.txtBer.TabIndex = 1;
+            // 
             // txtMessage
             // 
             this.txtMessage.Location = new System.Drawing.Point(142, 19);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtMessage.Size = new System.Drawing.Size(266, 20);
-            this.txtMessage.TabIndex = 2;
+            this.txtMessage.TabIndex = 0;
             // 
             // label3
             // 
@@ -243,22 +259,6 @@
             this.label1.TabIndex = 12;
             this.label1.Text = "Sender Side";
             // 
-            // txtBer
-            // 
-            this.txtBer.Location = new System.Drawing.Point(143, 45);
-            this.txtBer.Name = "txtBer";
-            this.txtBer.Size = new System.Drawing.Size(265, 20);
-            this.txtBer.TabIndex = 4;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(42, 48);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(94, 13);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "Bit Error Rate (0-1)";
-            // 
             // FormRdt20
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -277,6 +277,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FormRdt20";
             this.Text = "FormRdt20";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormRdt20_FormClosed);
             this.Load += new System.EventHandler(this.FormRdt20_Load);
             this.receiverTransportLayer.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

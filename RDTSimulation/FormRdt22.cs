@@ -216,5 +216,10 @@ namespace RDTSimulation
             }
 
         }
+
+        private void FormRdt22_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            simulationTimer.Stop();
+        }
     }
 }

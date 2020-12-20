@@ -260,6 +260,7 @@
             this.Name = "FormRdt10";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormRdt10";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormRdt10_FormClosed);
             this.Load += new System.EventHandler(this.FormRdt10_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
