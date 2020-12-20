@@ -157,7 +157,7 @@ namespace RDTSimulation
             {
                 if (isReceiverReceivedPacketDubblicate(packet))
                 {
-                    MessageBox.Show("Receiver got dublicate packet! Discard it..\n P" + packet.id);
+                    MessageBox.Show("Receiver got dublicate packet!","Discard it..\n P" + packet.id);
                     Controls.Remove(packet);
                 }
                 else
