@@ -9,7 +9,7 @@ using static RDTSimulation.Enums;
 
 namespace RDTSimulation
 {
-    public class Packet : Button
+    public class Packet : Button , IComparable<Packet>
     {
         public STATUS status;
         public char data;
@@ -53,9 +53,9 @@ namespace RDTSimulation
         public void setSequenceNumber(int sequenceNumber)
         {
             this.sequenceNumber = sequenceNumber;
-            if(this.packetType == PACKET_TYPE.DATA)
+            if (this.packetType == PACKET_TYPE.DATA)
             {
-                this.Text = "P" + id+"\n#"+this.sequenceNumber;
+                this.Text = "P" + id + "\n#" + this.sequenceNumber;
             }
             else if (packetType == PACKET_TYPE.ACK)
             {
@@ -112,7 +112,7 @@ namespace RDTSimulation
 
                 return false;
             }
-            else if(direction == DIRECTION.SENDER)
+            else if (direction == DIRECTION.SENDER)
             {
                 if (Location.Y < unreliableChannelNodes[0].Y)
                 {
@@ -141,7 +141,7 @@ namespace RDTSimulation
         public void setHasBitError(bool val)
         {
             isCorrupted = val;
-            if(val)
+            if (val)
             {
                 ForeColor = Color.Red;
             }
@@ -149,6 +149,11 @@ namespace RDTSimulation
             {
                 ForeColor = Color.Black;
             }
+        }
+
+        public int CompareTo(Packet other)
+        {
+            return this.id.CompareTo(other.id);
         }
     }
 }

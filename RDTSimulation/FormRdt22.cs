@@ -18,6 +18,10 @@ namespace RDTSimulation
         private List<Packet> responsePackets = new List<Packet>();
         private List<Packet> receivedResponses = new List<Packet>();
 
+        private List<Packet> receiverReceivedPackets = new List<Packet>();
+        double bitErrorRate;
+        int packetCount;
+
         public int senderExpectedSequence = 0;
         public int receiverExpectedSequence = 0;
 
@@ -57,12 +61,32 @@ namespace RDTSimulation
             lblReceiverExpected.Text = "Expected Sequence: #" + receiverExpectedSequence;
         }
 
+        private bool isReceiverReceivedPacketDubblicate(Packet packet)
+        {
+            foreach (Packet p in receiverReceivedPackets)
+                if (p.id == packet.id) return true;
+            return false;
+        }
+
+        private void randomPacketError(Packet packet)
+        {
+            Random rnd = new Random();
+
+
+            if (rnd.NextDouble() <= this.bitErrorRate)
+            {
+                packet.setHasBitError(true);
+            }
+        }
+
         private Packet getLastPacketSent()
         {
             Packet packet;
-            for (int i = (dataPackets.Count - 1); i >= 0; i--)
+            List<Packet> newList = new List<Packet>(dataPackets);
+            newList.Sort();
+            for (int i = (newList.Count - 1); i >= 0; i--)
             {
-                packet = dataPackets[i];
+                packet = newList[i];
                 if (packet.status == STATUS.SENT) return packet;
             }
             return null;
@@ -73,11 +97,12 @@ namespace RDTSimulation
             if (txtMessage.Text.Length == 0) return;
             if (txtBer.Text.Length == 0) return;
 
-            double bitErrorRate = double.Parse(txtBer.Text);
-            Random rnd = new Random();
+            this.bitErrorRate = double.Parse(txtBer.Text);
             reset();
             btnSendMessage.Enabled = false;
             string message = txtMessage.Text;
+            packetCount = message.Length;
+
             txtMessage.Text = "";
             txtBer.Text = "";
             lblSenderData.Text = "Data: " + message;
@@ -87,11 +112,8 @@ namespace RDTSimulation
                 char c = message[i];
                 Packet packet = new Packet(i, c, DIRECTION.RECEIVER, PACKET_TYPE.DATA);
 
-
-                if (rnd.NextDouble() <= bitErrorRate && i != 0)
-                {
-                    packet.setHasBitError(true);
-                }
+                if (i != 0)
+                    randomPacketError(packet);
 
                 dataPackets.Add(packet);
                 this.Controls.Add(packet);
@@ -115,6 +137,7 @@ namespace RDTSimulation
             lblSenderData.Text = "Data: ";
             lblReceiverData.Text = "Data: ";
             receiverPacketContainer.Controls.Clear();
+            receiverReceivedPackets.Clear();
         }
 
         private bool isResponseDublicate(Packet packet)
@@ -132,9 +155,19 @@ namespace RDTSimulation
             packet.status = STATUS.SENT;
             if (!packet.isCorrupted)
             {
+                if (isReceiverReceivedPacketDubblicate(packet))
+                {
+                    MessageBox.Show("Receiver got dublicate packet! Discard it..\n P" + packet.id);
+                    Controls.Remove(packet);
+                }
+                else
+                {
+                    receiverReceivedPackets.Add(packet);
+                    receiverPacketContainer.Controls.Add(packet);
+                    lblReceiverData.Text += packet.data;
+                }
                 response = new Packet(packet.id, packet.data, DIRECTION.SENDER, PACKET_TYPE.ACK);
-                receiverPacketContainer.Controls.Add(packet);
-                lblReceiverData.Text += packet.data;
+
             }
             else
             {
@@ -144,11 +177,13 @@ namespace RDTSimulation
 
             response.setSequenceNumber(receiverExpectedSequence);
             updateReceiverExpected();
+            randomPacketError(response);
 
 
             this.Controls.Add(response);
             if (!responsePackets.Contains(response))
                 responsePackets.Add(response);
+
             response.status = STATUS.SENDING;
         }
 
@@ -159,24 +194,37 @@ namespace RDTSimulation
             updateSenderExpected();
 
             // All packets were transmitted
-            if (packet.packetType == PACKET_TYPE.ACK && (packet.id + 1) == dataPackets.Count)
+            if (packet.packetType == PACKET_TYPE.ACK &&
+                (packet.id + 1) == packetCount &&
+                !packet.isCorrupted)
             {
                 simulationTimer.Stop();
                 btnSendMessage.Enabled = true;
                 return;
             }
 
-            if (!isResponseDublicate(packet))
+            if (packet.isCorrupted)
+            {
+                Packet lastPacket = getLastPacketSent();
+                Packet samePacket = new Packet(lastPacket.id, lastPacket.data, lastPacket.direction, lastPacket.packetType);
+                dataPackets.Add(samePacket);
+                samePacket.setHasBitError(false);
+                samePacket.BringToFront();
+                Controls.Add(samePacket);
+                samePacket.status = STATUS.SENDING;
+                samePacket.BringToFront();
+                samePacket.setSequenceNumber(senderExpectedSequence);
+            }
+            else if (!isResponseDublicate(packet))
             {
                 Packet packetToSend = dataPackets[packet.id + 1];
                 packetToSend.setSequenceNumber(senderExpectedSequence);
                 packetToSend.status = STATUS.SENDING;
                 receivedResponses.Add(packet);
-
             }
             else
             {
-                MessageBox.Show("Dublicate ACK!", "Sender did not accept the dublicate packet!");
+                MessageBox.Show("Dublicate ACK!", "Sender did not accept the dublicate packet! \n ACK FOR P" + packet.id);
                 // Sending data packet again!
                 Packet dataPacket = getLastPacketSent();
                 dataPacket.setHasBitError(false);
