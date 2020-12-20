@@ -17,7 +17,6 @@ namespace RDTSimulation
         private List<Packet> dataPackets = new List<Packet>();
         private List<Packet> responsePackets = new List<Packet>();
 
-        private List<Packet> senderReceivedPackets = new List<Packet>();
         private List<Packet> receiverReceivedPackets = new List<Packet>();
 
         double bitErrorRate;
@@ -92,8 +91,6 @@ namespace RDTSimulation
 
             simulationTimer.Start();
             dataPackets[0].status = STATUS.SENDING;
-
-
         }
 
         private void reset()
