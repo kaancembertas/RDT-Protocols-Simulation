@@ -18,6 +18,7 @@ namespace RDTSimulation
         public int id { get; }
         private List<Point> unreliableChannelNodes = Helper.unreliableChannelNodes;
         public bool isCorrupted = false;
+        public bool isLoss = false;
         public int sequenceNumber { get; set; }
 
         public Packet(int id, char data, DIRECTION direction, PACKET_TYPE packetType)
@@ -142,6 +143,19 @@ namespace RDTSimulation
         {
             isCorrupted = val;
             if (val)
+            {
+                ForeColor = Color.Red;
+            }
+            else
+            {
+                ForeColor = Color.Black;
+            }
+        }
+
+        public void setIsLoss(bool val)
+        {
+            isLoss = val;
+            if(val)
             {
                 ForeColor = Color.Red;
             }
