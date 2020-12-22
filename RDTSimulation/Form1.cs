@@ -47,6 +47,12 @@ namespace RDTSimulation
             form.ShowDialog();
         }
 
+        private void button6_Click(object sender, EventArgs e)
+        {
+            FormRdt30StopAndWait form = new FormRdt30StopAndWait();
+            form.ShowDialog();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             List<Point> unreliableChannelNodes = Helper.unreliableChannelNodes;

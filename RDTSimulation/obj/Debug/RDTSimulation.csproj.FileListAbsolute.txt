@@ -13,3 +13,4 @@ C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug
 C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.FormRdt21.resources
 C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.FormRdt22.resources
 C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.FormRdt30GoBN.resources
+C:\Users\Kaan-PC\Desktop\COMPUTER NETWORKS\RDTSimulation\RDTSimulation\obj\Debug\RDTSimulation.FormRdt30StopAndWait.resources

@@ -12,7 +12,7 @@ using static RDTSimulation.Enums;
 
 namespace RDTSimulation
 {
-    public partial class FormRdt30GoBN : Form
+    public partial class FormRdt30StopAndWait : Form
     {
         private List<Point> unreliableChannelNodes = Helper.unreliableChannelNodes;
         private List<Packet> drawablePackets = new List<Packet>();
@@ -26,12 +26,12 @@ namespace RDTSimulation
         int windowSize;
         int windowBaseIndex = 0;
 
-        public FormRdt30GoBN()
+        public FormRdt30StopAndWait()
         {
             InitializeComponent();
         }
 
-        private void FormRdt30GoBN_Load(object sender, EventArgs e)
+        private void FormRdt30StopAndWait_Load(object sender, EventArgs e)
         {
             // Create pen.
             Pen blackPen = new Pen(Color.Black, 3);
@@ -58,7 +58,7 @@ namespace RDTSimulation
             txtSenderLog.AppendText("\nTimeout!");
 
             //Sending window elements again
-            for (int i = windowBaseIndex; i < windowBaseIndex+windowSize; i++)
+            for (int i = windowBaseIndex; i < windowBaseIndex + windowSize; i++)
             {
                 if (i >= this.sender.packets.Count) break;
 
@@ -151,8 +151,6 @@ namespace RDTSimulation
 
             for (int i = 0; i < windowSize; i++)
             {
-                if (i == packetCount) break;
-
                 Packet packet = this.sender.packets[i];
                 if (i != 0) randomPacketLoss(packet);
                 packet.status = STATUS.SENDING;
@@ -176,7 +174,7 @@ namespace RDTSimulation
                 receiverPacketContainer.Controls.Add(packet);
                 receiver.receivedPackets.Add(packet);
                 receiver.packets.Add(response);
-                txtReceiverLog.AppendText("\nRcv P"+packet.id+", send ACK #"+response.id);
+                txtReceiverLog.AppendText("\nRcv P" + packet.id + ", send ACK #" + response.id);
 
                 startSendingPacket(response);
             }
@@ -223,7 +221,7 @@ namespace RDTSimulation
                 Packet packetToSend = sender.packets[packet.id + windowSize];
                 randomPacketLoss(packetToSend);
                 packetToSend.status = STATUS.SENDING;
-                txtSenderLog.AppendText("\nRcv ACK #"+packet.id+", Start sending P" + packetToSend.id);
+                txtSenderLog.AppendText("\nRcv ACK #" + packet.id + ", Start sending P" + packetToSend.id);
             }
             this.timer.Start();
         }
@@ -265,7 +263,7 @@ namespace RDTSimulation
             }
         }
 
-        private void FormRdt30GoBN_FormClosed(object sender, FormClosedEventArgs e)
+        private void FormRdt30StopAndWait_FormClosed(object sender, FormClosedEventArgs e)
         {
             simulationTimer.Stop();
         }
