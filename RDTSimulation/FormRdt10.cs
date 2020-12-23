@@ -111,7 +111,7 @@ namespace RDTSimulation
             foreach (Packet packet in packets)
             {
                 packet.status = STATUS.SENDING;
-                await Task.Delay(500);
+                await Task.Delay(190);
             }
         }
 
