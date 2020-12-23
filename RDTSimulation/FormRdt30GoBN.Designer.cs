@@ -319,7 +319,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormRdt30GoBN";
-            this.Text = "Rdt 3.0 GoBN Simulation";
+            this.Text = "PIPELINE GoBN Simulation";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormRdt30GoBN_FormClosed);
             this.Load += new System.EventHandler(this.FormRdt30GoBN_Load);
             this.receiverTransportLayer.ResumeLayout(false);

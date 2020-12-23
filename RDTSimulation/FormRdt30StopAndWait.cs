@@ -63,6 +63,12 @@ namespace RDTSimulation
                 if (i >= this.sender.packets.Count) break;
 
                 Packet packet = this.sender.packets[i];
+                if (receiver.receivedPackets.Contains(packet))
+                {
+                    packet = new Packet(packet.id, packet.data, packet.direction, packet.packetType);
+                    Controls.Add(packet);
+                    drawablePackets.Add(packet);
+                }
                 packet.Location = Helper.senderLocaliton;
                 packet.status = STATUS.SENDING;
                 packet.setIsLoss(false);
@@ -113,6 +119,13 @@ namespace RDTSimulation
             return false;
         }
 
+        private bool isPacketDublicate(Packet packet)
+        {
+            foreach (Packet p in receiver.receivedPackets)
+                if (packet.id == p.id) return true;
+            return false;
+        }
+
         private async void btnSendMessage_Click(object sender, EventArgs e)
         {
             if (txtMessage.Text.Length == 0) return;
@@ -129,7 +142,6 @@ namespace RDTSimulation
             // Form Controls
             txtBer.Text = "";
             txtMessage.Text = "";
-            txtWindowSize.Text = "";
             btnSendMessage.Enabled = false;
 
             lblSenderData.Text = message;
@@ -151,6 +163,8 @@ namespace RDTSimulation
 
             for (int i = 0; i < windowSize; i++)
             {
+                if (i == packetCount) break;
+
                 Packet packet = this.sender.packets[i];
                 if (i != 0) randomPacketLoss(packet);
                 packet.status = STATUS.SENDING;
@@ -164,6 +178,15 @@ namespace RDTSimulation
         private void onReceiverGotPacket(Packet packet)
         {
             packet.status = STATUS.SENT;
+            if (isPacketDublicate(packet))
+            {
+                txtReceiverLog.AppendText("\nDiscard dublicate P" + packet.id + " Send Ack #" + packet.id);
+                Packet ack = receiver.packets[packet.id];
+                ack.Location = Helper.receiverLocation;
+                ack.setIsLoss(false);
+                startSendingPacket(ack);
+                return;
+            }
 
             if (packet.id == receiver.expectedSeq)
             {
@@ -175,7 +198,7 @@ namespace RDTSimulation
                 receiver.receivedPackets.Add(packet);
                 receiver.packets.Add(response);
                 txtReceiverLog.AppendText("\nRcv P" + packet.id + ", send ACK #" + response.id);
-
+                randomPacketLoss(response);
                 startSendingPacket(response);
             }
             else
@@ -212,18 +235,26 @@ namespace RDTSimulation
                 return;
             }
 
-            sender.receivedPackets.Add(packet);
-            sender.expectedSeq++;
-            windowBaseIndex++;
-            this.timer.Stop();
-            if (packet.id + windowSize < packetCount)
+            if (packet.id == sender.expectedSeq)
             {
-                Packet packetToSend = sender.packets[packet.id + windowSize];
-                randomPacketLoss(packetToSend);
-                packetToSend.status = STATUS.SENDING;
-                txtSenderLog.AppendText("\nRcv ACK #" + packet.id + ", Start sending P" + packetToSend.id);
+                sender.receivedPackets.Add(packet);
+                sender.expectedSeq++;
+                windowBaseIndex++;
+                this.timer.Stop();
+                if (packet.id + windowSize < packetCount)
+                {
+                    Packet packetToSend = sender.packets[packet.id + windowSize];
+                    randomPacketLoss(packetToSend);
+                    packetToSend.status = STATUS.SENDING;
+                    txtSenderLog.AppendText("\nRcv ACK #" + packet.id + ", Start sending P" + packetToSend.id);
+                }
+                this.timer.Start();
             }
-            this.timer.Start();
+            else
+            {
+                txtSenderLog.AppendText("\nDiscard ACK #" + packet.id);
+            }
+
         }
 
         private void simulationTimer_Tick(object sender, EventArgs e)

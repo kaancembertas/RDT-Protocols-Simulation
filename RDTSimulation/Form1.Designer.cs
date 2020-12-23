@@ -78,17 +78,17 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(268, 12);
+            this.button5.Location = new System.Drawing.Point(268, 118);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(250, 100);
             this.button5.TabIndex = 1;
-            this.button5.Text = "RDT 3.0 GO BACK N PACKET SIMULATION";
+            this.button5.Text = "PIPELINED GO BACK N PACKET SIMULATION";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(268, 118);
+            this.button6.Location = new System.Drawing.Point(268, 12);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(250, 100);
             this.button6.TabIndex = 1;

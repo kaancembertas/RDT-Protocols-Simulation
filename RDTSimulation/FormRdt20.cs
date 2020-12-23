@@ -129,7 +129,7 @@ namespace RDTSimulation
                 response = new Packet(packet.id, packet.data, DIRECTION.SENDER, PACKET_TYPE.NAK);
             }
 
-            randomPacketError(response);
+           //randomPacketError(response);
             this.Controls.Add(response);
             responsePackets.Add(response);
             response.status = STATUS.SENDING;
