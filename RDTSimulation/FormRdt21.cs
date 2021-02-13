@@ -150,8 +150,8 @@ namespace RDTSimulation
             response.setSequenceNumber(receiverExpectedSequence);
             updateReceiverExpected();
 
-
-            randomPacketError(response);
+            if(!isReceiverReceivedPacketDubblicate(packet))
+                randomPacketError(response);
 
             this.Controls.Add(response);
             responsePackets.Add(response);
